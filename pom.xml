@@ -14,5 +14,15 @@
   		<artifactId>joou</artifactId>
   		<version>0.9.4</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.twelvemonkeys.imageio</groupId>
+  		<artifactId>imageio-batik</artifactId>
+  		<version>3.2.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>batik</groupId>
+  		<artifactId>batik-transcoder</artifactId>
+  		<version>1.6-1</version>
+  	</dependency>
   </dependencies>
 </project>

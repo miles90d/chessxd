@@ -864,6 +864,10 @@ public class Board {
 		out.println("Total: " + moves.size());
 	}
 	
+	public BitBoard[] getBitboards() {
+		return this.bitboards;
+	}
+	
 	public void saveState() {
 		bitboardsSave = new BitBoard[12];
 	
@@ -1017,10 +1021,6 @@ public class Board {
 		
 		
 	}
-	
-	public static void main(String[] args) {
-		
-	}	 
 
 }
  
