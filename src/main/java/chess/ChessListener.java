@@ -83,9 +83,16 @@ public class ChessListener implements MouseListener {
 			}	
 			
 			if(pieceClicked != null && pieceClicked.isColor(this.board.getSide())) {
-				src = Square.getSquare(rank, file);
-				panel.highlightSquare(src);
-				System.out.println("src: " + src.toString());
+				if(dst == src) {
+					src = null;
+					dst = null;
+					dstMode = false;
+					panel.clearHighlight();
+				} else {
+					src = Square.getSquare(rank, file);
+					panel.highlightSquare(src);
+					System.out.println("src: " + src.toString());
+				}
 			}
 		}
 	}
