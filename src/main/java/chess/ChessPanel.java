@@ -1,8 +1,7 @@
 package chess;
 
 
-import static java.lang.System.out;
-
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -13,10 +12,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class ChessPanel extends JPanel {
 	
 	
-	private final int boardSize, squareSize;
+	private final int squareSize;
 	private final Image wP, wN, wB, wR, wQ, wK,
 							bP, bN, bB, bR, bQ, bK;
 	
@@ -25,8 +25,13 @@ public class ChessPanel extends JPanel {
 	
 	
 	
-	public ChessPanel(int boardSize, Board board) throws IOException {
-		this.boardSize = boardSize;
+	public ChessPanel(int boardSize, Board board, Dimension dim) throws IOException {
+		
+		this.setSize(dim);
+		this.setPreferredSize(dim);
+		this.setMinimumSize(dim);
+		this.setMaximumSize(dim);
+		
 		this.squareSize = boardSize / 8;
 		
 		this.wP = getScaledImage(ImageIO.read(getClass().getClassLoader().getResource("wP.svg")), squareSize);
@@ -45,7 +50,6 @@ public class ChessPanel extends JPanel {
 		
 		
 		this.boardImg = getScaledImage(ImageIO.read(getClass().getClassLoader().getResource("horsey.jpg")), boardSize);
-		
 		this.board = board;
 
 

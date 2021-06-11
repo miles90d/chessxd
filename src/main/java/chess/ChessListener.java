@@ -31,7 +31,17 @@ public class ChessListener implements MouseListener {
 			dstMode = true;
 		} else {
 			dst = Square.getSquare(rank, file);
+			Piece pieceClicked = null;
+			
+			for(var piece: Piece.values()) {
+				if(board.getBitboards()[piece.ordinal()].get(dst)) {
+					pieceClicked = piece;
+				}
+			}
+			
 			System.out.println("dst: " + dst.toString());
+			
+			
 			
 			var moves = board.generateMoves();
 			for(var move: moves) {
@@ -43,8 +53,10 @@ public class ChessListener implements MouseListener {
 				}		
 			}	
 			
-			src = Square.getSquare(rank, file);
-			System.out.println("src: " + src.toString());
+			if(pieceClicked != null) {
+				src = Square.getSquare(rank, file);
+				System.out.println("src: " + src.toString());
+			}
 		}
 	}
 

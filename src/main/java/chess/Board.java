@@ -168,6 +168,7 @@ public class Board {
 		//castle = 0b1111;
 		
 		this.parseFen(START_FEN);
+		this.generateMoves();
 		
 	};
 	
