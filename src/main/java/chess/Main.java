@@ -15,7 +15,7 @@ public class Main {
 		
 		ChessPanel panel = new ChessPanel(WIDTH, board, new Dimension(WIDTH, HEIGHT));
 		panel.addMouseListener(new ChessListener(board, WIDTH, panel));
-		JFrame mainFrame = new JFrame();
+		JFrame mainFrame = new JFrame("chessxd");
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.add(panel, BorderLayout.CENTER);
 		mainFrame.pack();
