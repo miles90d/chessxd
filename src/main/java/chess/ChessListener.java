@@ -11,7 +11,7 @@ public class ChessListener implements MouseListener {
 	private int squareSize;
 	private ChessPanel panel;
 	
-	private boolean clicked = false;
+	private boolean dstMode = false;
 	
 	public ChessListener(Board board, int boardSize, ChessPanel panel) {
 		this.board = board;
@@ -25,10 +25,10 @@ public class ChessListener implements MouseListener {
 		var rank = Rank.values()[e.getY() / squareSize];
 		
 		
-		if(!clicked) {
+		if(!dstMode) {
 			src = Square.getSquare(rank, file);
 			System.out.println("src: " + src.toString());
-			clicked = true;
+			dstMode = true;
 		} else {
 			dst = Square.getSquare(rank, file);
 			System.out.println("dst: " + dst.toString());
@@ -38,7 +38,7 @@ public class ChessListener implements MouseListener {
 				if(move.src() == src && move.dst() == dst) {
 					board.makeMove(move);
 					panel.repaint();
-					clicked = false;
+					dstMode = false;
 					return;
 				}		
 			}	
