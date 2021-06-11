@@ -28,14 +28,15 @@ public class ChessListener implements MouseListener {
 		var file = File.values()[e.getX() / squareSize];
 		var rank = Rank.values()[e.getY() / squareSize];
 		var square = Square.getSquare(rank, file);
+		Piece pieceClicked = null;
+		for(var piece: Piece.values()) {
+			if(board.getBitboards()[piece.ordinal()].get(square)) {
+				pieceClicked = piece;
+			}
+		}
 		
 		if(!dstMode) {
-			Piece pieceClicked = null;
-			for(var piece: Piece.values()) {
-				if(board.getBitboards()[piece.ordinal()].get(square)) {
-					pieceClicked = piece;
-				}
-			}
+
 			
 			if(pieceClicked != null && pieceClicked.isColor(this.board.getSide())) {
 				src = Square.getSquare(rank, file);
@@ -46,13 +47,7 @@ public class ChessListener implements MouseListener {
 
 		} else {
 			dst = Square.getSquare(rank, file);
-			Piece pieceClicked = null;
 			
-			for(var piece: Piece.values()) {
-				if(board.getBitboards()[piece.ordinal()].get(dst)) {
-					pieceClicked = piece;
-				}
-			}
 			
 			System.out.println("dst: " + dst.toString());
 			
