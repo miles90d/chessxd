@@ -17,12 +17,13 @@ public class ChessPanel extends JPanel {
 	
 	
 	private final int squareSize;
-	private final Image wP, wN, wB, wR, wQ, wK,
+	public final Image wP, wN, wB, wR, wQ, wK,
 							bP, bN, bB, bR, bQ, bK;
 	
 	private final Image boardImg;
 	private Board board;
 	
+	private Square highlightedSquare = null;
 	
 	
 	public ChessPanel(int boardSize, Board board, Dimension dim) throws IOException {
@@ -56,6 +57,16 @@ public class ChessPanel extends JPanel {
 		
 	}
 	
+	public void highlightSquare(Square square) {
+		this.highlightedSquare = square;
+		this.repaint();
+	}
+	
+	public void clearHighlight() {
+		this.highlightedSquare = null;
+		this.repaint();
+	}
+	
 	public void paint(Graphics g) {
 		int x = 0, y = 0;
 		
@@ -65,6 +76,11 @@ public class ChessPanel extends JPanel {
 			x = 0;
 			for(var file: File.values()) {
 				var square = Square.getSquare(rank, file);
+				
+				if(square == highlightedSquare) {
+					g.setColor(new java.awt.Color(115, 147, 179, 155));
+					g.fillRect(x, y, squareSize, squareSize);
+				}
 				
 				Piece piece = null;
 

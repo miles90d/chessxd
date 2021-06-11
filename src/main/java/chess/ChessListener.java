@@ -3,6 +3,10 @@ package chess;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class ChessListener implements MouseListener {
 
 	private Square src;
@@ -27,6 +31,7 @@ public class ChessListener implements MouseListener {
 		
 		if(!dstMode) {
 			src = Square.getSquare(rank, file);
+			panel.highlightSquare(src);
 			System.out.println("src: " + src.toString());
 			dstMode = true;
 		} else {
@@ -41,12 +46,31 @@ public class ChessListener implements MouseListener {
 			
 			System.out.println("dst: " + dst.toString());
 			
-			
-			
 			var moves = board.generateMoves();
 			for(var move: moves) {
 				if(move.src() == src && move.dst() == dst) {
-					board.makeMove(move);
+					if(move.promotedPiece() != null) {
+						Piece promotionPiece = null;
+						ImageIcon pIcon = board.getSide() == Color.white ? new ImageIcon(panel.wP) : new ImageIcon(panel.bP);
+						JFrame promotionSelect = new JFrame();
+						
+						String[] choices = {"Queen", "Rook", "Bishop", "Knight"};
+						String choice = (String)JOptionPane.showInputDialog(promotionSelect, "Promote your pawn!",
+								"Promotion", JOptionPane.PLAIN_MESSAGE, pIcon,
+								choices, "Queen");
+						
+						switch(choice) {
+						case "Queen" -> promotionPiece = (this.board.getSide() == Color.white) ? Piece.Q : Piece.q;
+						case "Bishop" -> promotionPiece = (this.board.getSide() == Color.white) ? Piece.B : Piece.b;
+						case "Knight" -> promotionPiece = (this.board.getSide() == Color.white) ? Piece.N : Piece.n;
+						case "Rook" -> promotionPiece = (this.board.getSide() == Color.white) ? Piece.R : Piece.r;
+						}
+					
+						board.makeMove(new Move(src, dst, move.piece(), promotionPiece, move.captureFlag(), false, false, false));
+					} else {
+						board.makeMove(move);
+					}
+					panel.clearHighlight();
 					panel.repaint();
 					dstMode = false;
 					return;
@@ -55,6 +79,7 @@ public class ChessListener implements MouseListener {
 			
 			if(pieceClicked != null) {
 				src = Square.getSquare(rank, file);
+				panel.highlightSquare(src);
 				System.out.println("src: " + src.toString());
 			}
 		}
