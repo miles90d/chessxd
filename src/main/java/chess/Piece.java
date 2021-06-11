@@ -34,4 +34,9 @@ public enum Piece {
 		
 		throw new IllegalStateException("No piece found");
 	}
+	
+	public boolean isColor(Color c) {
+		boolean isWhite = Character.isUpperCase(this.toString().charAt(0));
+		return c == Color.white ? isWhite : !isWhite;
+	}
 }

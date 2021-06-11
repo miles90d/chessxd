@@ -28,4 +28,5 @@ enum Square {
 	public File getFile() {
 		return File.values()[this.ordinal() % 8];
 	}
+	
 };
